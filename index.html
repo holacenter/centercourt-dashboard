@@ -8,265 +8,97 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #080808;
-    --surface: #111111;
-    --surface2: #181818;
-    --surface3: #202020;
-    --border: rgba(255,255,255,0.06);
-    --border2: rgba(255,255,255,0.11);
-    --border3: rgba(255,255,255,0.18);
-    --text: #efefef;
-    --text2: #aaa;
-    --muted: #555;
-    --accent: #00e5a0;
-    --accent-dim: rgba(0,229,160,0.12);
-    --accent2: #3d7fff;
-    --accent2-dim: rgba(61,127,255,0.12);
-    --warn: #ff6b35;
-    --warn-dim: rgba(255,107,53,0.1);
-    --yellow: #ffd60a;
-    --yellow-dim: rgba(255,214,10,0.1);
-    --mono: 'DM Mono', monospace;
-    --sans: 'DM Sans', sans-serif;
-    --radius: 10px;
-    --radius-sm: 6px;
+    --bg: #080808; --surface: #111111; --surface2: #181818; --surface3: #202020;
+    --border: rgba(255,255,255,0.06); --border2: rgba(255,255,255,0.11); --border3: rgba(255,255,255,0.18);
+    --text: #efefef; --text2: #aaa; --muted: #555;
+    --accent: #00e5a0; --accent-dim: rgba(0,229,160,0.12);
+    --accent2: #3d7fff; --accent2-dim: rgba(61,127,255,0.12);
+    --warn: #ff6b35; --warn-dim: rgba(255,107,53,0.1);
+    --yellow: #ffd60a; --yellow-dim: rgba(255,214,10,0.1);
+    --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+    --radius: 10px; --radius-sm: 6px;
   }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 13px;
-    line-height: 1.5;
-    min-height: 100vh;
-  }
-
-  /* ── HEADER ── */
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.5; min-height: 100vh; }
   .header {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(8,8,8,0.92);
-    backdrop-filter: blur(12px);
+    background: rgba(8,8,8,0.92); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    padding: 14px 28px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; flex-wrap: wrap;
+    padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   }
-
   .header-left { display: flex; align-items: center; gap: 14px; }
-
-  .logo {
-    display: flex; align-items: center; gap: 8px;
-    text-decoration: none;
-  }
-
-  .logo-mark {
-    width: 28px; height: 28px; border-radius: 7px;
-    background: linear-gradient(135deg, var(--accent) 0%, #00b87a 100%);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 600; color: #000; font-family: var(--mono);
-  }
-
+  .logo-mark { width: 28px; height: 28px; border-radius: 7px; background: linear-gradient(135deg, var(--accent) 0%, #00b87a 100%); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #000; font-family: var(--mono); }
   .logo-text { font-size: 14px; font-weight: 500; letter-spacing: -0.01em; }
   .logo-sub { font-size: 10px; color: var(--muted); font-family: var(--mono); letter-spacing: 0.06em; margin-top: 1px; }
-
   .nav-tabs { display: flex; gap: 2px; background: var(--surface2); border-radius: var(--radius-sm); padding: 3px; }
-  .nav-tab {
-    padding: 5px 14px; border-radius: 4px; font-size: 11px;
-    cursor: pointer; color: var(--muted); border: none; background: transparent;
-    font-family: var(--sans); transition: all 0.15s; white-space: nowrap;
-  }
+  .nav-tab { padding: 5px 14px; border-radius: 4px; font-size: 11px; cursor: pointer; color: var(--muted); border: none; background: transparent; font-family: var(--sans); transition: all 0.15s; white-space: nowrap; }
   .nav-tab:hover { color: var(--text2); }
   .nav-tab.active { background: var(--surface3); color: var(--text); border: 1px solid var(--border2); }
-
   .header-right { display: flex; align-items: center; gap: 8px; }
-
-  .live-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--muted); flex-shrink: 0;
-    transition: all 0.3s;
-  }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0; transition: all 0.3s; }
   .live-dot.active { background: var(--accent); box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
   .live-dot.error { background: var(--warn); }
-
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
   .status-text { font-size: 11px; color: var(--muted); font-family: var(--mono); }
   .status-text.active { color: var(--accent); }
   .status-text.error { color: var(--warn); }
-
-  .btn {
-    background: var(--surface2); border: 1px solid var(--border2);
-    color: var(--text2); border-radius: var(--radius-sm); padding: 6px 14px;
-    font-size: 11px; font-family: var(--mono); cursor: pointer;
-    transition: all 0.15s; white-space: nowrap;
-  }
+  .btn { background: var(--surface2); border: 1px solid var(--border2); color: var(--text2); border-radius: var(--radius-sm); padding: 6px 14px; font-size: 11px; font-family: var(--mono); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .btn:hover { border-color: var(--accent); color: var(--accent); }
   .btn:disabled { opacity: 0.35; cursor: not-allowed; }
   .btn:disabled:hover { border-color: var(--border2); color: var(--text2); }
-  .btn-primary {
-    background: var(--accent2); border-color: var(--accent2);
-    color: #fff; font-family: var(--sans); font-weight: 500;
-  }
+  .btn-primary { background: var(--accent2); border-color: var(--accent2); color: #fff; font-family: var(--sans); font-weight: 500; }
   .btn-primary:hover { background: #2d6fee; border-color: #2d6fee; color: #fff; }
-
-  /* ── LOADING BAR ── */
   .loading-bar-wrap { height: 2px; background: transparent; overflow: hidden; }
-  .loading-bar {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    display: none; border-radius: 1px;
-    transition: width 0.3s;
-  }
+  .loading-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); display: none; border-radius: 1px; }
   .loading-bar.running { display: block; animation: loadbar 1.8s ease-in-out infinite; }
   @keyframes loadbar { 0%{width:0%;opacity:1} 70%{width:100%;opacity:1} 100%{width:100%;opacity:0} }
-
-  /* ── SETUP PANEL ── */
-  .setup-panel {
-    margin: 20px 28px;
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    display: none;
-  }
+  .setup-panel { margin: 20px 28px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius); padding: 20px 24px; display: none; }
   .setup-panel.visible { display: block; }
   .setup-title { font-size: 13px; font-weight: 500; color: var(--accent2); margin-bottom: 6px; }
   .setup-desc { font-size: 12px; color: var(--text2); line-height: 1.6; margin-bottom: 16px; }
-
   .steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
   .step { display: flex; align-items: flex-start; gap: 12px; }
-  .step-num {
-    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
-    background: var(--surface2); border: 1px solid var(--border2);
-    color: var(--muted); font-size: 10px; font-weight: 500;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); transition: all 0.2s;
-  }
+  .step-num { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); font-size: 10px; font-weight: 500; display: flex; align-items: center; justify-content: center; font-family: var(--mono); transition: all 0.2s; }
   .step-num.done { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
   .step-body { font-size: 12px; color: var(--text2); line-height: 1.6; padding-top: 2px; }
-  .step-body code {
-    background: var(--surface2); border-radius: 4px;
-    padding: 1px 6px; font-family: var(--mono); color: var(--text); font-size: 11px;
-  }
-
+  .step-body code { background: var(--surface2); border-radius: 4px; padding: 1px 6px; font-family: var(--mono); color: var(--text); font-size: 11px; }
   .input-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .input-row + .input-row { margin-top: 8px; }
-  .field {
-    flex: 1; min-width: 220px;
-    background: var(--surface2); border: 1px solid var(--border2);
-    color: var(--text); border-radius: var(--radius-sm); padding: 7px 12px;
-    font-size: 12px; font-family: var(--mono); outline: none;
-    transition: border-color 0.15s;
-  }
+  .field { flex: 1; min-width: 220px; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); border-radius: var(--radius-sm); padding: 7px 12px; font-size: 12px; font-family: var(--mono); outline: none; transition: border-color 0.15s; }
   .field:focus { border-color: var(--accent2); }
   .field::placeholder { color: var(--muted); }
-
-  .error-msg {
-    font-size: 11px; color: var(--warn); font-family: var(--mono);
-    background: var(--warn-dim); border: 1px solid rgba(255,107,53,0.2);
-    border-radius: var(--radius-sm); padding: 7px 12px; margin-top: 8px;
-    display: none;
-  }
-
-  /* ── MAIN ── */
+  .error-msg { font-size: 11px; color: var(--warn); font-family: var(--mono); background: var(--warn-dim); border: 1px solid rgba(255,107,53,0.2); border-radius: var(--radius-sm); padding: 7px 12px; margin-top: 8px; display: none; }
   .main { padding: 0 28px 40px; }
-
   .page { display: none; }
   .page.active { display: block; }
-
-  .section-label {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--muted);
-    margin: 24px 0 10px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .section-label::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
-
-  /* ── KPI GRID ── */
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px;
-  }
-
-  .kpi-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    position: relative; overflow: hidden;
-    transition: border-color 0.2s, transform 0.15s;
-    cursor: default;
-  }
+  .section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 24px 0 10px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.15s; }
   .kpi-card:hover { border-color: var(--border2); transform: translateY(-1px); }
-
-  .kpi-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    border-radius: var(--radius) var(--radius) 0 0;
-  }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: var(--radius) var(--radius) 0 0; }
   .kpi-card.green::before { background: var(--accent); }
   .kpi-card.blue::before { background: var(--accent2); }
   .kpi-card.warn::before { background: var(--warn); }
   .kpi-card.yellow::before { background: var(--yellow); }
-
   .kpi-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-  .kpi-value {
-    font-size: 28px; font-weight: 300; font-family: var(--mono);
-    color: var(--muted); line-height: 1;
-    transition: color 0.3s;
-  }
+  .kpi-value { font-size: 28px; font-weight: 300; font-family: var(--mono); color: var(--muted); line-height: 1; transition: color 0.3s; }
   .kpi-value.loaded { color: var(--text); }
   .kpi-sub { font-size: 10px; color: var(--muted); margin-top: 6px; font-family: var(--mono); }
-  .kpi-delta {
-    display: inline-flex; align-items: center; gap: 3px;
-    font-size: 10px; font-family: var(--mono); margin-top: 5px;
-  }
-  .kpi-delta.up { color: var(--accent); }
-  .kpi-delta.down { color: var(--warn); }
-  .kpi-benchmark {
-    font-size: 9px; color: var(--muted); font-family: var(--mono); margin-top: 4px;
-  }
+  .kpi-benchmark { font-size: 9px; color: var(--muted); font-family: var(--mono); margin-top: 4px; }
   .kpi-benchmark .bm-val { color: var(--yellow); }
-
-  /* ── CARDS ── */
-  .card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 18px 20px;
-  }
-  .card-title {
-    font-size: 10px; font-weight: 500; color: var(--muted);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
-  }
-
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .card-title { font-size: 10px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   @media(max-width:700px) { .two-col,.three-col { grid-template-columns: 1fr; } }
-
-  /* ── FUNNEL ── */
   .funnel-item { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
   .funnel-label { font-size: 11px; color: var(--muted); min-width: 112px; font-family: var(--mono); }
   .funnel-bar-bg { flex: 1; height: 26px; background: var(--surface2); border-radius: 5px; overflow: hidden; }
-  .funnel-bar {
-    height: 100%; border-radius: 5px;
-    display: flex; align-items: center; padding-left: 10px;
-    font-size: 10px; font-family: var(--mono); font-weight: 500;
-    transition: width 1s cubic-bezier(0.4,0,0.2,1);
-    min-width: 2px;
-  }
+  .funnel-bar { height: 100%; border-radius: 5px; display: flex; align-items: center; padding-left: 10px; font-size: 10px; font-family: var(--mono); font-weight: 500; transition: width 1s cubic-bezier(0.4,0,0.2,1); min-width: 2px; }
   .funnel-pct { font-size: 10px; color: var(--muted); min-width: 36px; text-align: right; font-family: var(--mono); }
   .funnel-drop { font-size: 9px; color: var(--warn); min-width: 42px; text-align: right; font-family: var(--mono); }
-
-  /* ── SOURCES ── */
-  .source-row {
-    display: flex; align-items: center; gap: 10px;
-    padding: 7px 0; border-bottom: 1px solid var(--border);
-  }
+  .source-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); }
   .source-row:last-child { border-bottom: none; }
   .source-name { font-size: 11px; color: var(--text2); font-family: var(--mono); min-width: 130px; }
   .source-bar-bg { flex: 1; height: 3px; background: var(--surface2); border-radius: 2px; }
@@ -276,20 +108,10 @@
   .source-cvr.good { color: var(--accent); }
   .source-cvr.mid { color: var(--yellow); }
   .source-cvr.bad { color: var(--warn); }
-
-  /* ── PAGES ── */
-  .pages-header {
-    display: flex; gap: 8px; padding-bottom: 6px;
-    border-bottom: 1px solid var(--border); margin-bottom: 4px;
-    font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
-  }
+  .pages-header { display: flex; gap: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); margin-bottom: 4px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
   .pages-header .ph-path { flex: 1; }
   .pages-header .ph-num { min-width: 60px; text-align: right; }
-
-  .page-row {
-    display: flex; align-items: center; gap: 8px;
-    padding: 6px 0; border-bottom: 1px solid var(--border);
-  }
+  .page-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); }
   .page-row:last-child { border-bottom: none; }
   .page-path { font-size: 11px; color: var(--text2); font-family: var(--mono); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .page-sessions { font-size: 10px; color: var(--muted); font-family: var(--mono); min-width: 52px; text-align: right; }
@@ -297,87 +119,39 @@
   .page-cvr.good { color: var(--accent); }
   .page-cvr.mid { color: var(--yellow); }
   .page-cvr.bad { color: var(--warn); }
-
-  /* ── DEVICES ── */
-  .device-card {
-    background: var(--surface2); border-radius: var(--radius-sm);
-    padding: 14px 16px; text-align: center;
-  }
+  .device-card { background: var(--surface2); border-radius: var(--radius-sm); padding: 14px 16px; text-align: center; }
   .device-name { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; }
   .device-val { font-size: 22px; font-weight: 300; font-family: var(--mono); }
   .device-cvr { font-size: 10px; font-family: var(--mono); color: var(--muted); margin-top: 4px; }
   .device-bar { height: 3px; border-radius: 2px; margin-top: 10px; transition: width 0.8s; }
-
-  /* ── CLARITY SECTION ── */
-  .clarity-note {
-    font-size: 11px; color: var(--text2); font-family: var(--mono);
-    background: var(--surface2); border-radius: var(--radius-sm);
-    padding: 10px 14px; margin-bottom: 14px; line-height: 1.7;
-    border-left: 2px solid var(--border3);
-  }
+  .clarity-note { font-size: 11px; color: var(--text2); font-family: var(--mono); background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px; line-height: 1.7; border-left: 2px solid var(--border3); }
   .clarity-checks { display: flex; flex-direction: column; gap: 7px; }
-  .clarity-check {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 12px; color: var(--text2);
-    padding: 8px 12px; border-radius: var(--radius-sm);
-    border: 1px solid var(--border); background: var(--surface2);
-    cursor: pointer; transition: all 0.15s;
-  }
+  .clarity-check { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text2); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface2); cursor: pointer; transition: all 0.15s; }
   .clarity-check:hover { border-color: var(--border2); }
   .clarity-check.done { border-color: var(--accent); background: var(--accent-dim); }
   .clarity-check .cc-icon { font-size: 14px; flex-shrink: 0; }
   .clarity-check .cc-label { flex: 1; }
   .clarity-check .cc-tag { font-size: 9px; font-family: var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-
-  .clarity-link-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--accent2); font-size: 11px;
-    font-family: var(--mono); padding: 7px 14px;
-    border: 1px solid rgba(61,127,255,0.25); border-radius: var(--radius-sm);
-    background: var(--accent2-dim); cursor: pointer;
-    transition: all 0.15s; text-decoration: none; margin-bottom: 14px;
-  }
+  .clarity-link-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--accent2); font-size: 11px; font-family: var(--mono); padding: 7px 14px; border: 1px solid rgba(61,127,255,0.25); border-radius: var(--radius-sm); background: var(--accent2-dim); cursor: pointer; transition: all 0.15s; text-decoration: none; margin-bottom: 14px; }
   .clarity-link-btn:hover { background: rgba(61,127,255,0.18); }
-
-  /* ── ANALYSIS SECTION ── */
-  .analysis-input-wrap { display: flex; gap: 8px; margin-bottom: 12px; }
-  .analysis-input {
-    flex: 1; background: var(--surface2); border: 1px solid var(--border2);
-    color: var(--text); border-radius: var(--radius-sm); padding: 8px 12px;
-    font-size: 12px; font-family: var(--sans); outline: none; resize: vertical;
-    min-height: 60px;
-  }
+  .analysis-input { width: 100%; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; font-family: var(--sans); outline: none; resize: vertical; min-height: 80px; }
   .analysis-input:focus { border-color: var(--accent2); }
-  .analysis-output {
-    background: var(--surface2); border-radius: var(--radius-sm);
-    padding: 12px 14px; font-size: 12px; color: var(--text2);
-    line-height: 1.7; min-height: 60px; font-family: var(--sans);
-    border: 1px solid var(--border);
-  }
+  .footer { text-align: center; padding: 20px 28px; font-size: 10px; color: var(--muted); font-family: var(--mono); border-top: 1px solid var(--border); margin-top: 20px; }
 
-  /* ── FOOTER ── */
-  .footer {
-    text-align: center; padding: 20px 28px;
-    font-size: 10px; color: var(--muted); font-family: var(--mono);
-    border-top: 1px solid var(--border); margin-top: 20px;
-  }
-
-  /* ── SKELETON ── */
-  .skel {
-    background: linear-gradient(90deg, var(--surface2) 25%, var(--surface3) 50%, var(--surface2) 75%);
-    background-size: 200% 100%;
-    animation: skel 1.5s infinite;
-    border-radius: 4px; height: 14px; margin: 4px 0;
-  }
-  @keyframes skel { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  /* Insight cards */
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; margin-top: 8px; }
+  .insight-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 12px 16px; }
+  .insight-card.warn { border-left-color: var(--warn); }
+  .insight-card.yellow { border-left-color: var(--yellow); }
+  .insight-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .insight-desc { font-size: 11px; color: var(--text2); line-height: 1.6; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-left">
-    <div class="logo">
+    <div style="display:flex;align-items:center;gap:8px;">
       <div class="logo-mark">CC</div>
       <div>
         <div class="logo-text">CenterCourt</div>
@@ -385,10 +159,11 @@
       </div>
     </div>
     <nav class="nav-tabs">
-      <button class="nav-tab active" onclick="switchPage('overview')">Resumen</button>
-      <button class="nav-tab" onclick="switchPage('funnel')">Embudo</button>
-      <button class="nav-tab" onclick="switchPage('traffic')">Tráfico</button>
-      <button class="nav-tab" onclick="switchPage('clarity')">Clarity</button>
+      <button class="nav-tab active" onclick="switchPage('overview',this)">Resumen</button>
+      <button class="nav-tab" onclick="switchPage('funnel',this)">Embudo</button>
+      <button class="nav-tab" onclick="switchPage('traffic',this)">Tráfico</button>
+      <button class="nav-tab" onclick="switchPage('insights',this)">Insights</button>
+      <button class="nav-tab" onclick="switchPage('clarity',this)">Clarity</button>
     </nav>
   </div>
   <div class="header-right">
@@ -399,220 +174,98 @@
   </div>
 </header>
 
-<div class="loading-bar-wrap">
-  <div class="loading-bar" id="loadingBar"></div>
-</div>
+<div class="loading-bar-wrap"><div class="loading-bar" id="loadingBar"></div></div>
 
-<!-- SETUP PANEL -->
 <div class="setup-panel visible" id="setupPanel">
   <div class="setup-title">Conexión con GA4 — configuración única</div>
-  <div class="setup-desc">Sigue estos 3 pasos una sola vez. Los datos se guardan en tu navegador.</div>
-
+  <div class="setup-desc">Pega la URL de tu Apps Script Web App (v3 con soporte JSONP). Se guarda en el navegador.</div>
   <div class="steps">
-    <div class="step">
-      <div class="step-num done" id="s1">1</div>
-      <div class="step-body">Measurement ID capturado: <code>G-KFV1GF19C5</code> ✓</div>
-    </div>
-    <div class="step">
-      <div class="step-num done" id="s2">✓</div>
-      <div class="step-body">Property ID capturado: <code>455129703</code> ✓</div>
-    </div>
-    <div class="step">
-      <div class="step-num" id="s3">3</div>
-      <div class="step-body">Pega la URL de tu Apps Script Web App para conectar datos en tiempo real</div>
-    </div>
+    <div class="step"><div class="step-num done">✓</div><div class="step-body">Measurement ID: <code>G-KFV1GF19C5</code> · Property ID: <code>455129703</code></div></div>
+    <div class="step"><div class="step-num done">✓</div><div class="step-body">Apps Script v3 con JSONP desplegado bajo <code>hola@centercourt.cl</code></div></div>
+    <div class="step"><div class="step-num" id="s3">3</div><div class="step-body">Pega la URL del nuevo Web App (v3) abajo y conecta</div></div>
   </div>
-
   <div class="input-row">
-    <input class="field" id="proxyInput" type="text"
-      placeholder="https://script.google.com/macros/s/XXXX/exec" />
+    <input class="field" id="proxyInput" type="text" placeholder="https://script.google.com/macros/s/NUEVA_URL_V3/exec" />
     <button class="btn btn-primary" onclick="saveAndConnect()">Conectar GA4</button>
   </div>
   <div class="error-msg" id="errorMsg"></div>
 </div>
 
-<!-- MAIN -->
 <main class="main">
 
-  <!-- PAGE: OVERVIEW -->
+  <!-- OVERVIEW -->
   <div class="page active" id="page-overview">
-
     <div class="section-label">Métricas clave — últimos 28 días</div>
     <div class="kpi-grid">
-      <div class="kpi-card green">
-        <div class="kpi-label">Sesiones</div>
-        <div class="kpi-value" id="kpi-sessions">—</div>
-        <div class="kpi-delta" id="d-sessions"></div>
-      </div>
-      <div class="kpi-card warn">
-        <div class="kpi-label">Tasa de conversión</div>
-        <div class="kpi-value" id="kpi-cvr">—</div>
-        <div class="kpi-benchmark">objetivo: <span class="bm-val">2.0%</span></div>
-      </div>
-      <div class="kpi-card blue">
-        <div class="kpi-label">Transacciones</div>
-        <div class="kpi-value" id="kpi-txn">—</div>
-        <div class="kpi-delta" id="d-txn"></div>
-      </div>
-      <div class="kpi-card yellow">
-        <div class="kpi-label">Revenue GA4</div>
-        <div class="kpi-value" id="kpi-rev">—</div>
-        <div class="kpi-sub" id="kpi-rev-sub">CLP · últimos 28d</div>
-      </div>
-      <div class="kpi-card green">
-        <div class="kpi-label">Ticket promedio</div>
-        <div class="kpi-value" id="kpi-aov">—</div>
-        <div class="kpi-sub">CLP / orden</div>
-      </div>
-      <div class="kpi-card warn">
-        <div class="kpi-label">Tasa de rebote</div>
-        <div class="kpi-value" id="kpi-bounce">—</div>
-        <div class="kpi-benchmark">objetivo: <span class="bm-val">&lt;50%</span></div>
-      </div>
+      <div class="kpi-card green"><div class="kpi-label">Sesiones</div><div class="kpi-value" id="kpi-sessions">—</div></div>
+      <div class="kpi-card warn"><div class="kpi-label">Tasa de conversión</div><div class="kpi-value" id="kpi-cvr">—</div><div class="kpi-benchmark">objetivo: <span class="bm-val">2.0%</span></div></div>
+      <div class="kpi-card blue"><div class="kpi-label">Transacciones</div><div class="kpi-value" id="kpi-txn">—</div></div>
+      <div class="kpi-card yellow"><div class="kpi-label">Revenue GA4</div><div class="kpi-value" id="kpi-rev">—</div><div class="kpi-sub">CLP · últimos 28d</div></div>
+      <div class="kpi-card green"><div class="kpi-label">Ticket promedio</div><div class="kpi-value" id="kpi-aov">—</div><div class="kpi-sub">CLP / orden</div></div>
+      <div class="kpi-card warn"><div class="kpi-label">Tasa de rebote</div><div class="kpi-value" id="kpi-bounce">—</div><div class="kpi-benchmark">objetivo: <span class="bm-val">&lt;50%</span></div></div>
     </div>
-
     <div class="section-label">Dispositivos</div>
     <div class="three-col">
-      <div class="device-card">
-        <div class="device-name">Mobile</div>
-        <div class="device-val" id="dev-m-s">—</div>
-        <div class="device-cvr" id="dev-m-c">cvr: —</div>
-        <div class="device-bar" style="background:var(--accent)" id="dev-m-bar"></div>
-      </div>
-      <div class="device-card">
-        <div class="device-name">Desktop</div>
-        <div class="device-val" id="dev-d-s">—</div>
-        <div class="device-cvr" id="dev-d-c">cvr: —</div>
-        <div class="device-bar" style="background:var(--accent2)" id="dev-d-bar"></div>
-      </div>
-      <div class="device-card">
-        <div class="device-name">Tablet</div>
-        <div class="device-val" id="dev-t-s">—</div>
-        <div class="device-cvr" id="dev-t-c">cvr: —</div>
-        <div class="device-bar" style="background:var(--yellow)" id="dev-t-bar"></div>
-      </div>
+      <div class="device-card"><div class="device-name">Mobile</div><div class="device-val" id="dev-m-s">—</div><div class="device-cvr" id="dev-m-c">cvr: —</div><div class="device-bar" style="background:var(--accent)" id="dev-m-bar"></div></div>
+      <div class="device-card"><div class="device-name">Desktop</div><div class="device-val" id="dev-d-s">—</div><div class="device-cvr" id="dev-d-c">cvr: —</div><div class="device-bar" style="background:var(--accent2)" id="dev-d-bar"></div></div>
+      <div class="device-card"><div class="device-name">Tablet</div><div class="device-val" id="dev-t-s">—</div><div class="device-cvr" id="dev-t-c">cvr: —</div><div class="device-bar" style="background:var(--yellow)" id="dev-t-bar"></div></div>
     </div>
-
   </div>
 
-  <!-- PAGE: FUNNEL -->
+  <!-- FUNNEL -->
   <div class="page" id="page-funnel">
     <div class="section-label">Embudo de compra completo</div>
     <div class="card">
       <div class="card-title">Sesión → Producto → Carrito → Checkout → Compra</div>
-      <div id="funnelWrap">
-        <div class="funnel-item">
-          <div class="funnel-label">sesiones</div>
-          <div class="funnel-bar-bg"><div class="funnel-bar" id="fb0" style="width:100%;background:rgba(61,127,255,0.25);color:#6699ff">—</div></div>
-          <div class="funnel-pct" id="fp0">100%</div>
-          <div class="funnel-drop"></div>
-        </div>
-        <div class="funnel-item">
-          <div class="funnel-label">ver producto</div>
-          <div class="funnel-bar-bg"><div class="funnel-bar" id="fb1" style="width:55%;background:rgba(0,229,160,0.2);color:var(--accent)">—</div></div>
-          <div class="funnel-pct" id="fp1">—</div>
-          <div class="funnel-drop" id="fd1">—</div>
-        </div>
-        <div class="funnel-item">
-          <div class="funnel-label">add to cart</div>
-          <div class="funnel-bar-bg"><div class="funnel-bar" id="fb2" style="width:12%;background:rgba(255,214,10,0.2);color:var(--yellow)">—</div></div>
-          <div class="funnel-pct" id="fp2">—</div>
-          <div class="funnel-drop" id="fd2">—</div>
-        </div>
-        <div class="funnel-item">
-          <div class="funnel-label">checkout</div>
-          <div class="funnel-bar-bg"><div class="funnel-bar" id="fb3" style="width:5%;background:rgba(255,107,53,0.2);color:#ff9a5c">—</div></div>
-          <div class="funnel-pct" id="fp3">—</div>
-          <div class="funnel-drop" id="fd3">—</div>
-        </div>
-        <div class="funnel-item">
-          <div class="funnel-label">compra</div>
-          <div class="funnel-bar-bg"><div class="funnel-bar" id="fb4" style="width:1%;background:rgba(255,107,53,0.35);color:var(--warn)">—</div></div>
-          <div class="funnel-pct" id="fp4">—</div>
-          <div class="funnel-drop"></div>
-        </div>
-      </div>
+      <div class="funnel-item"><div class="funnel-label">sesiones</div><div class="funnel-bar-bg"><div class="funnel-bar" id="fb0" style="width:100%;background:rgba(61,127,255,0.3);color:#6699ff">—</div></div><div class="funnel-pct">100%</div><div class="funnel-drop"></div></div>
+      <div class="funnel-item"><div class="funnel-label">ver producto</div><div class="funnel-bar-bg"><div class="funnel-bar" id="fb1" style="width:55%;background:rgba(0,229,160,0.2);color:var(--accent)">—</div></div><div class="funnel-pct" id="fp1">—</div><div class="funnel-drop" id="fd1">—</div></div>
+      <div class="funnel-item"><div class="funnel-label">add to cart</div><div class="funnel-bar-bg"><div class="funnel-bar" id="fb2" style="width:12%;background:rgba(255,214,10,0.2);color:var(--yellow)">—</div></div><div class="funnel-pct" id="fp2">—</div><div class="funnel-drop" id="fd2">—</div></div>
+      <div class="funnel-item"><div class="funnel-label">checkout</div><div class="funnel-bar-bg"><div class="funnel-bar" id="fb3" style="width:5%;background:rgba(255,107,53,0.2);color:#ff9a5c">—</div></div><div class="funnel-pct" id="fp3">—</div><div class="funnel-drop" id="fd3">—</div></div>
+      <div class="funnel-item"><div class="funnel-label">compra</div><div class="funnel-bar-bg"><div class="funnel-bar" id="fb4" style="width:1%;background:rgba(255,107,53,0.4);color:var(--warn)">—</div></div><div class="funnel-pct" id="fp4">—</div><div class="funnel-drop"></div></div>
     </div>
-
     <div class="section-label">Páginas — sesiones vs conversión</div>
     <div class="card">
-      <div class="pages-header">
-        <span class="ph-path">Página</span>
-        <span class="ph-num">Sesiones</span>
-        <span class="ph-num">CVR</span>
-      </div>
+      <div class="pages-header"><span class="ph-path">Página</span><span class="ph-num">Sesiones</span><span class="ph-num">CVR</span></div>
       <div id="pagesWrap"><div class="page-row"><span class="page-path" style="color:var(--muted)">Conecta GA4 para ver datos reales</span></div></div>
     </div>
   </div>
 
-  <!-- PAGE: TRAFFIC -->
+  <!-- TRAFFIC -->
   <div class="page" id="page-traffic">
     <div class="section-label">Fuentes de tráfico</div>
     <div class="two-col">
-      <div class="card">
-        <div class="card-title">Sesiones por canal</div>
-        <div id="sourcesWrap"><div class="source-row"><span class="source-name" style="color:var(--muted)">Sin datos</span></div></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Conversión por canal</div>
-        <div id="sourcesCvrWrap"><div class="source-row"><span class="source-name" style="color:var(--muted)">Sin datos</span></div></div>
-      </div>
+      <div class="card"><div class="card-title">Sesiones por canal</div><div id="sourcesWrap"><div class="source-row"><span class="source-name" style="color:var(--muted)">Sin datos</span></div></div></div>
+      <div class="card"><div class="card-title">Conversión por canal</div><div id="sourcesCvrWrap"><div class="source-row"><span class="source-name" style="color:var(--muted)">Sin datos</span></div></div></div>
     </div>
   </div>
 
-  <!-- PAGE: CLARITY -->
+  <!-- INSIGHTS -->
+  <div class="page" id="page-insights">
+    <div class="section-label">Diagnóstico automático — basado en datos GA4</div>
+    <div class="insight-grid" id="insightsWrap">
+      <div class="insight-card"><div class="insight-title">Conecta GA4 para ver insights</div><div class="insight-desc">Los insights se generan automáticamente al cargar los datos.</div></div>
+    </div>
+  </div>
+
+  <!-- CLARITY -->
   <div class="page" id="page-clarity">
     <div class="section-label">Microsoft Clarity — análisis cualitativo semanal</div>
     <div class="card">
-      <div class="clarity-note">
-        Clarity no expone API pública — los datos de heatmaps, scroll maps y grabaciones
-        solo se visualizan en la plataforma. Úsalo como complemento cualitativo de los
-        datos cuantitativos de GA4. Checklist semanal recomendado:
-      </div>
-      <a class="clarity-link-btn" href="https://clarity.microsoft.com" target="_blank">
-        ↗ Abrir Microsoft Clarity
-      </a>
+      <div class="clarity-note">Clarity no expone API pública — heatmaps y grabaciones se revisan en la plataforma. Checklist semanal recomendado:</div>
+      <a class="clarity-link-btn" href="https://clarity.microsoft.com" target="_blank">↗ Abrir Microsoft Clarity</a>
       <div class="clarity-checks">
-        <div class="clarity-check" onclick="toggleCheck(this)">
-          <span class="cc-icon">○</span>
-          <span class="cc-label">Heatmap home — scroll depth y zona de clicks</span>
-          <span class="cc-tag">semanal</span>
-        </div>
-        <div class="clarity-check" onclick="toggleCheck(this)">
-          <span class="cc-icon">○</span>
-          <span class="cc-label">Heatmap PDP raqueta top — posición botón "Agregar al carro"</span>
-          <span class="cc-tag">semanal</span>
-        </div>
-        <div class="clarity-check" onclick="toggleCheck(this)">
-          <span class="cc-icon">○</span>
-          <span class="cc-label">Dead clicks esta semana — elementos que confunden al usuario</span>
-          <span class="cc-tag">semanal</span>
-        </div>
-        <div class="clarity-check" onclick="toggleCheck(this)">
-          <span class="cc-icon">○</span>
-          <span class="cc-label">Rage clicks — páginas con mayor frustración registrada</span>
-          <span class="cc-tag">semanal</span>
-        </div>
-        <div class="clarity-check" onclick="toggleCheck(this)">
-          <span class="cc-icon">○</span>
-          <span class="cc-label">5 grabaciones móvil de sesiones sin compra completada</span>
-          <span class="cc-tag">semanal</span>
-        </div>
-        <div class="clarity-check" onclick="toggleCheck(this)">
-          <span class="cc-icon">○</span>
-          <span class="cc-label">Comparativa mobile vs desktop — scroll depth promedio</span>
-          <span class="cc-tag">quincenal</span>
-        </div>
+        <div class="clarity-check" onclick="toggleCheck(this)"><span class="cc-icon">○</span><span class="cc-label">Heatmap home — scroll depth y zona de clicks</span><span class="cc-tag">semanal</span></div>
+        <div class="clarity-check" onclick="toggleCheck(this)"><span class="cc-icon">○</span><span class="cc-label">Heatmap PDP raqueta top — posición botón "Agregar al carro"</span><span class="cc-tag">semanal</span></div>
+        <div class="clarity-check" onclick="toggleCheck(this)"><span class="cc-icon">○</span><span class="cc-label">Dead clicks — elementos que confunden al usuario</span><span class="cc-tag">semanal</span></div>
+        <div class="clarity-check" onclick="toggleCheck(this)"><span class="cc-icon">○</span><span class="cc-label">Rage clicks — páginas con mayor frustración registrada</span><span class="cc-tag">semanal</span></div>
+        <div class="clarity-check" onclick="toggleCheck(this)"><span class="cc-icon">○</span><span class="cc-label">5 grabaciones móvil de sesiones sin compra completada</span><span class="cc-tag">semanal</span></div>
+        <div class="clarity-check" onclick="toggleCheck(this)"><span class="cc-icon">○</span><span class="cc-label">Comparativa mobile vs desktop — scroll depth promedio</span><span class="cc-tag">quincenal</span></div>
       </div>
     </div>
-
     <div class="section-label">Notas de análisis semanal</div>
     <div class="card">
       <div class="card-title">Observaciones Clarity esta semana</div>
-      <textarea class="analysis-input" id="clarityNotes"
-        placeholder="Describe lo que viste en Clarity esta semana: dead clicks, rage clicks, comportamiento en mobile, zonas de scroll donde se detienen... Guarda tus notas aquí."
-        oninput="saveNotes()"
-      ></textarea>
+      <textarea class="analysis-input" id="clarityNotes" placeholder="Describe lo que viste en Clarity esta semana: dead clicks, rage clicks, comportamiento en mobile, zonas de scroll donde se detienen..." oninput="saveNotes()"></textarea>
     </div>
   </div>
 
@@ -623,18 +276,15 @@
 </footer>
 
 <script>
-  // ── CONFIG ────────────────────────────────────────────────
-  const PROXY_KEY   = 'cc_proxy_url';
-  const NOTES_KEY   = 'cc_clarity_notes';
-  let proxyUrl      = localStorage.getItem(PROXY_KEY) || '';
-  let currentPage   = 'overview';
-  let lastData      = null;
+  const PROXY_KEY  = 'cc_proxy_url_v3';
+  const NOTES_KEY  = 'cc_clarity_notes';
+  let proxyUrl     = localStorage.getItem(PROXY_KEY) || '';
+  let currentPage  = 'overview';
+  let lastData     = null;
 
-  // Restore notes
   const notesEl = document.getElementById('clarityNotes');
   if (notesEl) notesEl.value = localStorage.getItem(NOTES_KEY) || '';
 
-  // Auto-fill proxy if saved
   if (proxyUrl) {
     document.getElementById('proxyInput').value = proxyUrl;
     document.getElementById('setupPanel').classList.remove('visible');
@@ -644,27 +294,22 @@
     fetchData();
   }
 
-  // ── NAVIGATION ────────────────────────────────────────────
-  function switchPage(name) {
+  function switchPage(name, btn) {
     currentPage = name;
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
-    event.target.classList.add('active');
+    if (btn) btn.classList.add('active');
     if (lastData) renderPage(name, lastData);
   }
 
   function toggleSetup() {
-    const p = document.getElementById('setupPanel');
-    p.classList.toggle('visible');
+    document.getElementById('setupPanel').classList.toggle('visible');
   }
 
-  // ── SETUP ─────────────────────────────────────────────────
   function saveAndConnect() {
     const val = document.getElementById('proxyInput').value.trim();
-    if (!val.startsWith('https://')) {
-      showErr('La URL debe comenzar con https://'); return;
-    }
+    if (!val.startsWith('https://')) { showErr('La URL debe comenzar con https://'); return; }
     proxyUrl = val;
     localStorage.setItem(PROXY_KEY, val);
     document.getElementById('s3').textContent = '✓';
@@ -675,69 +320,69 @@
     fetchData();
   }
 
-  function showErr(m) {
-    const el = document.getElementById('errorMsg');
-    el.textContent = m; el.style.display = 'block';
-  }
+  function showErr(m) { const el = document.getElementById('errorMsg'); el.textContent = m; el.style.display = 'block'; }
   function hideErr() { document.getElementById('errorMsg').style.display = 'none'; }
 
-  // ── FETCH ─────────────────────────────────────────────────
-  async function fetchData() {
+  // ── JSONP fetch — bypasses CORS ─────────────────────────────
+  function fetchData() {
     if (!proxyUrl) return;
     setStatus('loading');
     document.getElementById('refreshBtn').disabled = true;
     document.getElementById('refreshBtn').textContent = '↻ Cargando...';
     document.getElementById('loadingBar').classList.add('running');
 
-    try {
-      const res = await fetch(proxyUrl);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-      lastData = data;
-      renderAll(data);
-      setStatus('ok');
-      document.getElementById('lastUpdated').textContent =
-        'actualizado ' + new Date().toLocaleString('es-CL');
-    } catch(e) {
-      setStatus('error');
-      document.getElementById('lastUpdated').textContent = 'Error: ' + e.message;
-      console.error('GA4 proxy error:', e);
-    } finally {
+    const cbName = 'ga4cb_' + Date.now();
+    const script  = document.createElement('script');
+    const timer   = setTimeout(() => {
+      cleanup(); setStatus('error');
+      document.getElementById('lastUpdated').textContent = 'Error: timeout';
+    }, 15000);
+
+    function cleanup() {
+      if (document.head.contains(script)) document.head.removeChild(script);
+      delete window[cbName];
+      clearTimeout(timer);
       document.getElementById('refreshBtn').disabled = false;
       document.getElementById('refreshBtn').textContent = '↻ Refrescar';
       document.getElementById('loadingBar').classList.remove('running');
     }
+
+    window[cbName] = function(data) {
+      cleanup();
+      if (data.error) { setStatus('error'); document.getElementById('lastUpdated').textContent = 'Error: ' + data.error; return; }
+      lastData = data;
+      renderAll(data);
+      setStatus('ok');
+      document.getElementById('lastUpdated').textContent = 'actualizado ' + new Date().toLocaleString('es-CL');
+    };
+
+    script.src = proxyUrl + '?callback=' + cbName + '&t=' + Date.now();
+    script.onerror = function() { cleanup(); setStatus('error'); };
+    document.head.appendChild(script);
   }
 
   function setStatus(state) {
     const dot  = document.getElementById('liveDot');
     const text = document.getElementById('statusText');
-    dot.className  = 'live-dot';
-    text.className = 'status-text';
-    if (state === 'ok')      { dot.classList.add('active'); text.classList.add('active'); text.textContent = 'GA4 conectado'; }
-    else if (state === 'error') { dot.classList.add('error');  text.classList.add('error');  text.textContent = 'error de conexión'; }
+    dot.className = 'live-dot'; text.className = 'status-text';
+    if (state === 'ok')    { dot.classList.add('active'); text.classList.add('active'); text.textContent = 'GA4 conectado'; }
+    else if (state === 'error') { dot.classList.add('error'); text.classList.add('error'); text.textContent = 'error'; }
     else { text.textContent = 'cargando...'; }
   }
 
-  // ── RENDER ────────────────────────────────────────────────
-  const fmt    = n  => new Intl.NumberFormat('es-CL').format(Math.round(n));
-  const fmtCLP = n  => '$' + new Intl.NumberFormat('es-CL').format(Math.round(n));
-  const fmtPct = n  => (Math.round(n * 10) / 10).toFixed(1) + '%';
+  const fmt    = n => new Intl.NumberFormat('es-CL').format(Math.round(n));
+  const fmtCLP = n => '$' + new Intl.NumberFormat('es-CL').format(Math.round(n));
+  const fmtPct = n => (Math.round(n * 10) / 10).toFixed(1) + '%';
 
-  function renderAll(d) {
-    renderOverview(d);
-    renderFunnel(d);
-    renderPages(d);
-    renderSources(d);
-    renderDevices(d);
-  }
-
+  function renderAll(d) { renderOverview(d); renderFunnel(d); renderPages(d); renderSources(d); renderDevices(d); renderInsights(d); }
   function renderPage(name, d) {
     if (name === 'overview') { renderOverview(d); renderDevices(d); }
     if (name === 'funnel')   { renderFunnel(d); renderPages(d); }
     if (name === 'traffic')  { renderSources(d); }
+    if (name === 'insights') { renderInsights(d); }
   }
+
+  function setKpi(id, val) { const el = document.getElementById(id); if (!el) return; el.textContent = val; el.classList.add('loaded'); }
 
   function renderOverview(d) {
     setKpi('kpi-sessions', fmt(d.sessions));
@@ -748,112 +393,100 @@
     setKpi('kpi-bounce',   fmtPct(d.bounceRate));
   }
 
-  function setKpi(id, val) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = val;
-    el.classList.add('loaded');
-  }
-
   function renderFunnel(d) {
     if (!d.funnel || d.funnel.length < 5) return;
-    const f = d.funnel;
+    const f    = d.funnel;
     const base = f[0] || 1;
-    const colors = [
-      'rgba(61,127,255,0.3)','rgba(0,229,160,0.25)',
-      'rgba(255,214,10,0.25)','rgba(255,107,53,0.25)','rgba(255,107,53,0.4)'
-    ];
-    const textColors = ['#6699ff','var(--accent)','var(--yellow)','#ff9a5c','var(--warn)'];
+    const colors = ['rgba(61,127,255,0.3)','rgba(0,229,160,0.2)','rgba(255,214,10,0.2)','rgba(255,107,53,0.2)','rgba(255,107,53,0.4)'];
+    const texts  = ['#6699ff','var(--accent)','var(--yellow)','#ff9a5c','var(--warn)'];
     f.forEach((val, i) => {
       const pct = Math.round((val / base) * 100);
       const bar = document.getElementById('fb' + i);
-      if (bar) {
-        bar.style.width = Math.max(pct, 0.5) + '%';
-        bar.style.background = colors[i];
-        bar.style.color = textColors[i];
-        bar.textContent = fmt(val);
-      }
-      const pctEl = document.getElementById('fp' + i);
-      if (pctEl) pctEl.textContent = pct + '%';
-      if (i > 0) {
-        const prev = f[i-1] || 1;
-        const drop = Math.round(100 - (val / prev) * 100);
-        const dropEl = document.getElementById('fd' + i);
-        if (dropEl) dropEl.textContent = '−' + drop + '%';
-      }
+      if (bar) { bar.style.width = Math.max(pct, 0.5) + '%'; bar.style.background = colors[i]; bar.style.color = texts[i]; bar.textContent = fmt(val); }
+      const pEl = document.getElementById('fp' + i);
+      if (pEl) pEl.textContent = pct + '%';
+      if (i > 0) { const drop = Math.round(100 - (val / (f[i-1]||1)) * 100); const dEl = document.getElementById('fd' + i); if (dEl) dEl.textContent = '−' + drop + '%'; }
     });
   }
 
   function renderPages(d) {
     if (!d.pages || !d.pages.length) return;
-    const wrap = document.getElementById('pagesWrap');
-    wrap.innerHTML = d.pages.slice(0, 10).map(p => {
+    document.getElementById('pagesWrap').innerHTML = d.pages.slice(0,10).map(p => {
       const cvr = p.conversionRate || 0;
       const cls = cvr >= 2 ? 'good' : cvr >= 1 ? 'mid' : 'bad';
-      const path = p.path.length > 32 ? p.path.substring(0,30) + '…' : p.path;
-      return `<div class="page-row">
-        <span class="page-path">${path}</span>
-        <span class="page-sessions">${fmt(p.sessions)}</span>
-        <span class="page-cvr ${cls}">${fmtPct(cvr)}</span>
-      </div>`;
+      const path = p.path.length > 34 ? p.path.substring(0,32) + '…' : p.path;
+      return `<div class="page-row"><span class="page-path">${path}</span><span class="page-sessions">${fmt(p.sessions)}</span><span class="page-cvr ${cls}">${fmtPct(cvr)}</span></div>`;
     }).join('');
   }
 
   function renderSources(d) {
     if (!d.sources || !d.sources.length) return;
-    const max = d.sources[0].sessions || 1;
-    const maxCvr = Math.max(...d.sources.map(s => s.conversionRate || 0)) || 1;
-
-    document.getElementById('sourcesWrap').innerHTML = d.sources.slice(0,8).map(s => {
-      const w = Math.round((s.sessions / max) * 100);
-      return `<div class="source-row">
-        <span class="source-name">${s.name}</span>
-        <div class="source-bar-bg"><div class="source-bar" style="width:${w}%"></div></div>
-        <span class="source-val">${fmt(s.sessions)}</span>
-      </div>`;
+    const maxS = d.sources[0].sessions || 1;
+    document.getElementById('sourcesWrap').innerHTML = d.sources.map(s => {
+      const w = Math.round((s.sessions / maxS) * 100);
+      return `<div class="source-row"><span class="source-name">${s.name}</span><div class="source-bar-bg"><div class="source-bar" style="width:${w}%"></div></div><span class="source-val">${fmt(s.sessions)}</span></div>`;
     }).join('');
-
-    const sorted = [...d.sources].sort((a,b) => (b.conversionRate||0)-(a.conversionRate||0));
-    document.getElementById('sourcesCvrWrap').innerHTML = sorted.slice(0,8).map(s => {
+    const sorted  = [...d.sources].sort((a,b) => (b.conversionRate||0)-(a.conversionRate||0));
+    const maxC    = sorted[0].conversionRate || 1;
+    document.getElementById('sourcesCvrWrap').innerHTML = sorted.map(s => {
       const cvr = s.conversionRate || 0;
-      const w = Math.round((cvr / maxCvr) * 100);
+      const w   = Math.round((cvr / maxC) * 100);
       const cls = cvr >= 2 ? 'good' : cvr >= 1 ? 'mid' : 'bad';
-      return `<div class="source-row">
-        <span class="source-name">${s.name}</span>
-        <div class="source-bar-bg"><div class="source-bar" style="width:${w}%;background:${cvr>=2?'var(--accent)':cvr>=1?'var(--yellow)':'var(--warn)'}"></div></div>
-        <span class="source-cvr ${cls}">${fmtPct(cvr)}</span>
-      </div>`;
+      const color = cvr >= 2 ? 'var(--accent)' : cvr >= 1 ? 'var(--yellow)' : 'var(--warn)';
+      return `<div class="source-row"><span class="source-name">${s.name}</span><div class="source-bar-bg"><div class="source-bar" style="width:${w}%;background:${color}"></div></div><span class="source-cvr ${cls}">${fmtPct(cvr)}</span></div>`;
     }).join('');
   }
 
   function renderDevices(d) {
     if (!d.devices) return;
-    const devs = { mobile: d.devices.mobile, desktop: d.devices.desktop, tablet: d.devices.tablet };
-    const totalSessions = (devs.mobile?.sessions||0) + (devs.desktop?.sessions||0) + (devs.tablet?.sessions||0) || 1;
-    const map = { mobile: ['m','var(--accent)'], desktop: ['d','var(--accent2)'], tablet: ['t','var(--yellow)'] };
-    Object.entries(map).forEach(([dev, [k, color]]) => {
-      const info = devs[dev] || { sessions: 0, conversionRate: 0 };
-      const w = Math.round((info.sessions / totalSessions) * 100);
-      const s = document.getElementById('dev-'+k+'-s');
-      const c = document.getElementById('dev-'+k+'-c');
-      const b = document.getElementById('dev-'+k+'-bar');
+    const total = (d.devices.mobile?.sessions||0) + (d.devices.desktop?.sessions||0) + (d.devices.tablet?.sessions||0) || 1;
+    [['mobile','m'],['desktop','d'],['tablet','t']].forEach(([dev,k]) => {
+      const info = d.devices[dev] || { sessions:0, conversionRate:0 };
+      const w    = Math.round((info.sessions / total) * 100);
+      const s    = document.getElementById('dev-'+k+'-s');
+      const c    = document.getElementById('dev-'+k+'-c');
+      const b    = document.getElementById('dev-'+k+'-bar');
       if (s) s.textContent = fmt(info.sessions);
       if (c) c.textContent = 'cvr: ' + fmtPct(info.conversionRate);
       if (b) b.style.width = w + '%';
     });
   }
 
-  // ── CLARITY CHECKLIST ─────────────────────────────────────
+  function renderInsights(d) {
+    const insights = [];
+    if (d.conversionRate < 1) insights.push({ type:'warn', title:'Conversión crítica por debajo del 1%', desc:`Tu CVR actual es ${fmtPct(d.conversionRate)}. El benchmark de ecommerce deportivo es 2–3%. Con ${fmt(d.sessions)} sesiones, subir al 2% significaría ~${fmt(d.sessions * 0.02)} órdenes vs las ${fmt(d.transactions)} actuales.` });
+    else if (d.conversionRate < 2) insights.push({ type:'yellow', title:'Conversión por debajo del objetivo (2%)', desc:`Estás en ${fmtPct(d.conversionRate)}. Cada +0.5% de CVR con ${fmt(d.sessions)} sesiones agrega ~${fmt(d.sessions * 0.005)} órdenes mensuales.` });
+    else insights.push({ type:'green', title:'Conversión saludable', desc:`CVR en ${fmtPct(d.conversionRate)} — por encima del benchmark de 2%. Foco en aumentar AOV y recurrencia.` });
+
+    if (d.devices && d.devices.mobile && d.devices.desktop) {
+      const mCvr = d.devices.mobile.conversionRate;
+      const dCvr = d.devices.desktop.conversionRate;
+      const gap  = dCvr - mCvr;
+      if (gap > 3) insights.push({ type:'warn', title:`Brecha mobile/desktop de ${fmtPct(gap)}`, desc:`Mobile convierte ${fmtPct(mCvr)} vs desktop ${fmtPct(dCvr)}. Mobile representa el ${Math.round((d.devices.mobile.sessions/(d.devices.mobile.sessions+d.devices.desktop.sessions))*100)}% del tráfico — optimizar mobile es la palanca más grande.` });
+    }
+
+    if (d.funnel && d.funnel.length >= 3) {
+      const atcRate = Math.round((d.funnel[2] / d.funnel[0]) * 100);
+      if (atcRate < 5) insights.push({ type:'warn', title:`Add-to-cart rate bajo: ${atcRate}%`, desc:`Solo ${atcRate}% de las sesiones añaden al carro. El problema está en las fichas de producto: imágenes, descripción, precio, social proof o botón de compra.` });
+    }
+
+    if (d.bounceRate > 60) insights.push({ type:'warn', title:`Rebote alto: ${fmtPct(d.bounceRate)}`, desc:`El 60%+ de usuarios se van sin interactuar. Causas probables: velocidad de carga, mismatch entre anuncio y landing, o UX confusa en la home.` });
+
+    if (d.sources) {
+      const direct = d.sources.find(s => s.name === 'Direct');
+      if (direct && direct.conversionRate > 8) insights.push({ type:'green', title:`Tráfico directo convierte fuerte: ${fmtPct(direct.conversionRate)}`, desc:`Clientes que te conocen compran. Esto valida tu marca. Invertir en retención y email para convertir más tráfico pagado en clientes directos.` });
+    }
+
+    const wrap = document.getElementById('insightsWrap');
+    wrap.innerHTML = insights.map(i => `<div class="insight-card ${i.type==='warn'?'warn':i.type==='yellow'?'yellow':''}"><div class="insight-title">${i.title}</div><div class="insight-desc">${i.desc}</div></div>`).join('');
+  }
+
   function toggleCheck(el) {
     el.classList.toggle('done');
-    const icon = el.querySelector('.cc-icon');
-    icon.textContent = el.classList.contains('done') ? '✓' : '○';
+    el.querySelector('.cc-icon').textContent = el.classList.contains('done') ? '✓' : '○';
   }
 
-  function saveNotes() {
-    localStorage.setItem(NOTES_KEY, document.getElementById('clarityNotes').value);
-  }
+  function saveNotes() { localStorage.setItem(NOTES_KEY, document.getElementById('clarityNotes').value); }
 </script>
-
 </body>
 </html>
